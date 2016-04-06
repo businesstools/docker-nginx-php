@@ -30,6 +30,7 @@ RUN sed -i "s/;date.timezone =.*/date.timezone = UTC/"  /etc/php/7.0/cli/php.ini
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 RUN sed -i "s/;daemonize\s*=\s*yes/daemonize = no/g"    /etc/php/7.0/fpm/php-fpm.conf
 RUN sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/"  /etc/php/7.0/fpm/php.ini
+RUN sed -i "s/;clear_env\s*=\s*no/clear_env = no/"      /etc/php/7.0/fpm/pool.d/www.conf
 
 RUN mkdir -p                \
     /var/www                \
