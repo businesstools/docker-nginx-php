@@ -1,5 +1,4 @@
-Baseimage for ReST APIs (JSON)
+Baseimage for Nginx and PHP 7
 ==============================
 
-Expects a `package.json` in the project root and
-sources to be in `./src`.
+Expects website data at `/var/www/html`.
