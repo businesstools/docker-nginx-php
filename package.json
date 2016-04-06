@@ -1,0 +1,29 @@
+{
+  "name": "bt-baseimage-express-api",
+  "description": "BT Baseimage for ReST APIs with Express.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:leyyinad/docker-express-api.git"
+  },
+  "author": "Daniel Haus",
+  "license": "MIT",
+  "dependencies": {
+    "bluebird": "^3.3.4",
+    "body-parser": "^1.15.0",
+    "casper": "^0.1.1",
+    "compression": "^1.6.1",
+    "express": "^4.13.4",
+    "helmet": "^1.3.0"
+  },
+  "devDependencies": {
+    "babel": "^6.5.2",
+    "babel-cli": "^6.5.1",
+    "babel-core": "^6.5.2",
+    "babel-plugin-transform-runtime": "^6.5.2",
+    "babel-polyfill": "~6.7.4",
+    "babel-preset-es2015": "^6.5.0",
+    "babel-preset-stage-0": "^6.5.0",
+    "babel-runtime": "~6.6.1",
+    "del": "^2.2.0"
+  }
+}
