@@ -22,7 +22,9 @@ RUN apt-get install -yq --force-yes \
         php7.0-json \
         php7.0-bz2 \
         php7.0-tidy \
-        php7.0-opcache
+        php7.0-opcache \
+        php7.0-xml \
+        php7.0-xsl
 
 RUN sed -i "s/;date.timezone =.*/date.timezone = UTC/"  /etc/php/7.0/fpm/php.ini
 RUN sed -i "s/;date.timezone =.*/date.timezone = UTC/"  /etc/php/7.0/cli/php.ini
