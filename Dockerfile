@@ -4,7 +4,14 @@ MAINTAINER Daniel Haus <daniel.haus@businesstools.de>
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && \
     curl -sL https://deb.nodesource.com/setup_6.x | bash - && \
-    apt-get install -yq nginx nodejs python python-software-properties build-essential curl && \
+    apt-get install -yq \
+        nginx \
+        nodejs \
+        python \
+        python-software-properties \
+        build-essential \
+        curl \
+        zip && \
     add-apt-repository ppa:ondrej/php && \
     apt-get update && \
     apt-get install -yq --force-yes \
@@ -26,6 +33,7 @@ RUN apt-get update && \
         php7.0-opcache \
         php7.0-xml \
         php7.0-xsl \
+        php7.0-zip \
         composer \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
