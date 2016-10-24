@@ -26,6 +26,7 @@ RUN apt-get update && \
         php7.0-opcache \
         php7.0-xml \
         php7.0-xsl \
+        composer \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Fix npm inside docker image
