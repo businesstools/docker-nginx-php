@@ -1,6 +1,12 @@
 FROM jedisct1/phusion-baseimage-latest
 MAINTAINER Daniel Haus <daniel.haus@businesstools.de>
 
+# Fix npm inside docker image
+# see https://github.com/npm/npm/issues/9863
+#
+# Circumvent missing package problem ("nan") with node-gyp
+# https://github.com/ncb000gt/node.bcrypt.js/issues/428
+
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && \
     curl -sL https://deb.nodesource.com/setup_6.x | bash - && \
@@ -35,21 +41,14 @@ RUN apt-get update && \
         php7.0-xsl \
         php7.0-zip \
         composer \
-    && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-# Fix npm inside docker image
-# see https://github.com/npm/npm/issues/9863
-RUN cd $(npm root -g)/npm \
+    && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
+    cd $(npm root -g)/npm \
     && npm install fs-extra \
-    && sed -i -e s/graceful-fs/fs-extra/ -e s/fs.rename/fs.move/ ./lib/utils/rename.js
-
-# Circumvent missing package problem ("nan") with node-gyp
-# https://github.com/ncb000gt/node.bcrypt.js/issues/428
-RUN cd $(npm root -g)/npm && \
+    && sed -i -e s/graceful-fs/fs-extra/ -e s/fs.rename/fs.move/ ./lib/utils/rename.js && \
+    cd $(npm root -g)/npm && \
     npm install nan && \
-    npm install -g node-gyp
-
-RUN sed -i "s/;date.timezone =.*/date.timezone = UTC/" \
+    npm install -g node-gyp && \
+    sed -i "s/;date.timezone =.*/date.timezone = UTC/" \
         /etc/php/7.0/fpm/php.ini \
         /etc/php/7.0/cli/php.ini && \
     echo "daemon off;" >> /etc/nginx/nginx.conf && \
@@ -68,9 +67,8 @@ ADD phpfpm.sh           /etc/service/phpfpm/run
 
 RUN chmod +x \
         /etc/service/nginx/run \
-        /etc/service/phpfpm/run
-
-RUN ln -sf /dev/stdout /var/log/nginx/access.log && \
+        /etc/service/phpfpm/run && \
+    ln -sf /dev/stdout /var/log/nginx/access.log && \
     ln -sf /dev/stderr /var/log/nginx/error.log
 
 EXPOSE 80
