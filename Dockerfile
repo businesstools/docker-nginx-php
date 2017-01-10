@@ -1,4 +1,4 @@
-FROM jedisct1/phusion-baseimage-latest
+FROM jedisct1/phusion-baseimage-latest:16.04
 MAINTAINER Daniel Haus <daniel.haus@businesstools.de>
 
 # Fix npm inside docker image
