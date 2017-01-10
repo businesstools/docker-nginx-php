@@ -1,4 +1,4 @@
-FROM jedisct1/phusion-baseimage-latest
+FROM jedisct1/phusion-baseimage-latest:16.04
 MAINTAINER Daniel Haus <daniel.haus@businesstools.de>
 
 # Fix npm inside docker image
@@ -8,11 +8,14 @@ MAINTAINER Daniel Haus <daniel.haus@businesstools.de>
 # https://github.com/ncb000gt/node.bcrypt.js/issues/428
 
 ENV DEBIAN_FRONTEND noninteractive
-RUN apt-get update && \
+RUN (curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -) && \
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list && \
+    apt-get update && \
     curl -sL https://deb.nodesource.com/setup_6.x | bash - && \
     apt-get install -yq \
         nginx \
         nodejs \
+        yarn \
         python \
         python-software-properties \
         build-essential \
