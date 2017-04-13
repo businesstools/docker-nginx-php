@@ -65,9 +65,9 @@ RUN (curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -) && 
         /etc/service/phpfpm
 
 COPY etc/default.conf /etc/nginx/sites-available/default
-COPY etc/gzip.conf    /etc/nginx/conf.d/gzip.conf
-COPY nginx.sh         /etc/service/nginx/run
-COPY phpfpm.sh        /etc/service/phpfpm/run
+COPY etc/gzip.conf etc/security.conf etc/uploads.conf /etc/nginx/conf.d/
+COPY nginx.sh /etc/service/nginx/run
+COPY phpfpm.sh /etc/service/phpfpm/run
 
 RUN chmod +x \
         /etc/service/nginx/run \
