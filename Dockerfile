@@ -41,6 +41,7 @@ RUN (curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -) \
         php7.1-opcache \
         php7.1-xml \
         php7.1-xsl \
+        php7.1-yaml \
         php7.1-zip \
         composer \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
