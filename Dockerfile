@@ -1,49 +1,50 @@
 FROM jedisct1/phusion-baseimage-latest:16.04
-MAINTAINER Daniel Haus <daniel.haus@businesstools.de>
 
-ENV DEBIAN_FRONTEND noninteractive
 RUN (curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -) \
     && echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list \
     && apt-get update \
-    && apt-get install -yq --no-install-recommends \
-        apt-utils \
-        software-properties-common \
-        apt-transport-https \
-        python-software-properties \
-        build-essential \
-        language-pack-en-base \
+    && DEBIAN_FRONTEND=noninteractive \
+        apt-get install -yq --no-install-recommends \
+          apt-utils \
+          software-properties-common \
+          apt-transport-https \
+          python-software-properties \
+          build-essential \
+          language-pack-en-base \
     && curl -sL https://deb.nodesource.com/setup_8.x | bash - \
-    && apt-get install -yq \
-        nginx \
-        nodejs \
-        yarn \
-        python \
-        curl \
-        zip \
+    && DEBIAN_FRONTEND=noninteractive \
+        apt-get install -yq \
+          nginx \
+          nodejs \
+          yarn \
+          python \
+          curl \
+          zip \
     && LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php \
     && apt-get update \
-    && apt-get install -yq --force-yes \
-        php7.1-cli \
-        php7.1-fpm \
-        php7.1-mysql \
-        php7.1-pgsql \
-        php7.1-sqlite3 \
-        php7.1-ldap \
-        php7.1-curl \
-        php7.1-gd \
-        php7.1-mcrypt \
-        php7.1-mbstring \
-        php7.1-intl \
-        php7.1-xmlrpc \
-        php7.1-json \
-        php7.1-bz2 \
-        php7.1-tidy \
-        php7.1-opcache \
-        php7.1-xml \
-        php7.1-xsl \
-        php7.1-yaml \
-        php7.1-zip \
-        composer \
+    && DEBIAN_FRONTEND=noninteractive \
+        apt-get install -yq --force-yes \
+          php7.1-cli \
+          php7.1-fpm \
+          php7.1-mysql \
+          php7.1-pgsql \
+          php7.1-sqlite3 \
+          php7.1-ldap \
+          php7.1-curl \
+          php7.1-gd \
+          php7.1-mcrypt \
+          php7.1-mbstring \
+          php7.1-intl \
+          php7.1-xmlrpc \
+          php7.1-json \
+          php7.1-bz2 \
+          php7.1-tidy \
+          php7.1-opcache \
+          php7.1-xml \
+          php7.1-xsl \
+          php7.1-yaml \
+          php7.1-zip \
+          composer \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && sed -i "s/;date.timezone =.*/date.timezone = UTC/" \
         /etc/php/7.1/fpm/php.ini \
