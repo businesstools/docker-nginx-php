@@ -1,7 +1,11 @@
 FROM jedisct1/phusion-baseimage-latest:16.04
 
 RUN (curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -) \
-    && echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list \
+    && (curl -sS http://nginx.org/keys/nginx_signing.key | sudo apt-key add -) \
+    && echo "deb https://dl.yarnpkg.com/debian/ stable main" \
+      | sudo tee /etc/apt/sources.list.d/yarn.list \
+    && echo "deb http://nginx.org/packages/mainline/ubuntu/ xenial nginx" \
+      | sudo tee /etc/apt/sources.list.d/nginx.list \
     && apt-get update \
     && DEBIAN_FRONTEND=noninteractive \
         apt-get install -yq --no-install-recommends \
@@ -49,8 +53,8 @@ RUN (curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -) \
     && sed -i "s/;date.timezone =.*/date.timezone = UTC/" \
         /etc/php/7.1/fpm/php.ini \
         /etc/php/7.1/cli/php.ini \
-    && echo "daemon off;" >> /etc/nginx/nginx.conf \
-    && sed -i "s/;daemonize\s*=\s*yes/daemonize = no/g"    /etc/php/7.1/fpm/php-fpm.conf \
+    && sed -i "/listen\./s/www-data/nginx/g"               /etc/php/7.1/fpm/pool.d/www.conf \
+    && sed -i "s/;daemonize\s*=\s*yes/daemonize = no/"     /etc/php/7.1/fpm/php-fpm.conf \
     && sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/"  /etc/php/7.1/fpm/php.ini \
     && sed -i "s/;clear_env\s*=\s*no/clear_env = no/"      /etc/php/7.1/fpm/pool.d/www.conf \
     && mkdir -p \
@@ -59,8 +63,9 @@ RUN (curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -) \
         /etc/service/nginx \
         /etc/service/phpfpm
 
-COPY etc/default.conf /etc/nginx/sites-available/default
-COPY etc/gzip.conf etc/security.conf etc/uploads.conf /etc/nginx/conf.d/
+COPY nginx.conf /etc/nginx/
+COPY etc/*.conf /etc/nginx/conf.d/
+
 COPY nginx.sh /etc/service/nginx/run
 COPY phpfpm.sh /etc/service/phpfpm/run
 
