@@ -1,3 +1,5 @@
 #!/bin/sh
 
-php-fpm7.1 -c /etc/php/7.1/fpm
+PHP_FPM="php-fpm$PHP_VERSION"
+
+$PHP_FPM -c "/etc/php/$PHP_VERSION/fpm"
