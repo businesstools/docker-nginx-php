@@ -1,6 +1,6 @@
 FROM jedisct1/phusion-baseimage-latest:16.04
 
-ENV PHP_VERSION=7.1
+ENV PHP_VERSION=7.2
 
 RUN (curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -) \
     && (curl -sS http://nginx.org/keys/nginx_signing.key | sudo apt-key add -) \
@@ -38,7 +38,6 @@ RUN (curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -) \
           php${PHP_VERSION}-ldap \
           php${PHP_VERSION}-curl \
           php${PHP_VERSION}-gd \
-          php${PHP_VERSION}-mcrypt \
           php${PHP_VERSION}-mbstring \
           php${PHP_VERSION}-intl \
           php${PHP_VERSION}-xmlrpc \
