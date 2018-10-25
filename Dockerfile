@@ -29,7 +29,7 @@ RUN (curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -) \
     && LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php \
     && apt-get update \
     && DEBIAN_FRONTEND=noninteractive \
-        apt-get install -yq --force-yes \
+        apt-get install -yq \
           php${PHP_VERSION}-cli \
           php${PHP_VERSION}-fpm \
           php${PHP_VERSION}-mysql \
