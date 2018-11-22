@@ -62,7 +62,8 @@ RUN (curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -) \
         /var/www \
         /run/php \
         /etc/service/nginx \
-        /etc/service/phpfpm
+        /etc/service/phpfpm \
+    && npm install -g pnpm
 
 COPY nginx.conf /etc/nginx/
 COPY etc/*.conf /etc/nginx/conf.d/
