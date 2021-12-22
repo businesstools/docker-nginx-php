@@ -1,6 +1,6 @@
 FROM jedisct1/phusion-baseimage-latest:16.04
 
-ENV PHP_VERSION=7.2
+ENV PHP_VERSION=7.4
 
 RUN (curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -) \
     && (curl -sS http://nginx.org/keys/nginx_signing.key | sudo apt-key add -) \
